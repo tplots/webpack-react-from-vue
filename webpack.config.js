@@ -1,6 +1,7 @@
 // nodejs 中的path模块
 var path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var webpack = require('webpack');
 
 module.exports = {
 	// 入口文件，path.resolve()方法，可以结合我们给定的两个参数最后生成绝对路径，最终指向的就是我们的index.js文件
@@ -25,20 +26,18 @@ module.exports = {
 			// 使用vue-loader 加载 .vue 结尾的文件
 			{
 				test: /\.(js|jsx)$/,
-				loader: 'babel-loader' //loader的名称（必须）
-			}, {
-				test: /\.js$/,
-				loader: 'babel?presets=es2015',
+				loader: 'babel-loader', //loader的名称（必须）
 				exclude: /node_modules/
 			}, {
-				test: /\.css$/,
-				loader: "style!css!less!autoprefixer"
-			}, {
-				test: /\.less$/,
-				loader: "style!css!less"
+				test: /\.(css|less)$/,
+				loader: 'style!css!autoprefixer!less',
 			}, {
 				test: /\.(png|jpg|gif)$/,
-				loader: 'url?limit=8192'
+				loader: 'url?limit=1024&name=img/[name].[hash].[ext]'
+			}, {
+				// 专供iconfont方案使用的，后面会带一串时间戳，需要特别匹配到
+				test: /\.(woff|woff2|svg|eot|ttf)\??.*$/,
+				loader: 'file?name=./static/fonts/[name].[ext]',
 			}, {
 				test: /\.html$/,
 				loader: 'html'
@@ -51,7 +50,7 @@ module.exports = {
 			template: path.resolve(__dirname, 'app/index.html'),
 			inject: true,
 			hash: true
-		})
+		}),
 	]
 }
 

@@ -1,8 +1,9 @@
+import './css/style.less';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Publisher from './Hello.jsx';
+import Nav from './components/main/Nav.jsx';
 
 ReactDOM.render(
-    <Publisher />,
-    document.getElementById('container')
+    <Nav />,
+    document.getElementById('nav')
 );
